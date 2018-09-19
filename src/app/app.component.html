@@ -38,15 +38,41 @@
 
 <main>
   <div class="container-fluid">
+
     <button type="button" class="btn btn-primary" tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
       Button with tooltip
     </button>
-    
-    <button type="button" class="btn btn-info" (click)="openModal(template)">Create template modal</button>
+
+    <button type="button" class="btn btn-info" (click)="openModal(templateModal)">Create template modal</button>
+
+    <div class="card" *ngIf="post$ | async as post">
+      <div class="card-body">
+
+        <h2 class="h1">{{ post.text }}</h2>
+        <p class="lead">Votes: {{ post.likes }}</p>
+
+        <br>
+
+        <button class="btn btn-danger" (click)="upvote()">Upvote</button>
+        <button class="btn btn-warning" (click)="downvote()">Downvote</button>
+        <button class="btn btn-secondary" (click)="resetPost()">Reset</button>
+
+        <br>
+
+        <div class="input-group mb-3">
+          <input type="text" [(ngModel)]="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+            aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button (click)="editText()" class="btn btn-outline-secondary" type="button" id="button-addon2">Change
+              Title</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 
-<ng-template #template>
+<ng-template #templateModal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Modal</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
